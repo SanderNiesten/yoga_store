@@ -1,3 +1,15 @@
+#helper functions
+#--------------------------------------------------------
+def line_divide
+  puts "*" * 40
+  puts "\n"
+end
+
+
+
+#shopping cart, departments and products
+#---------------------------------------------------------
+
 @shopping_cart = []
 
 @departments = [ :mats, :props, :clothes, :books ]
@@ -21,14 +33,15 @@
     ]
   }
 
+
+#defining showing and selecting products and departments
+#---------------------------------------------------------
+
 def show_departments
   @products.each_key { |key| puts "#{key}; "}
 end
 
-def line_divide
-  puts "*" * 40
-  puts "\n"
-end
+
 
 puts "Welcome to our store. What departments would you like to order from?\n
 You can choose from:\n\n"
@@ -41,16 +54,24 @@ loop do
   @product_hashes = @products[@input]
 
   if @product_hashes == nil
-    puts "Invalid choice, try again"
+    puts "Invalid choice, you can choose from:\n\n"
+    show_departments
   else
     break
   end
 end
 
 @product_hashes.each do |hash|
-  hash.each_value do |value|
-    print "#{value}; "
+  puts "#{hash[:reference_number]}; #{hash[:name]}; #{hash[:price]};"
   end
-  puts
   line_divide
-end
+
+
+
+
+#for adding items to shopping_cart use the shovel <<
+
+#@input_2 = gets.to_sym
+#line_divide
+
+#@shopping_cart << "#{value}"
