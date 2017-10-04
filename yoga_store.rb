@@ -1,4 +1,3 @@
-
 @shopping_cart = []
 
 @departments = [ :mats, :props, :clothes, :books ]
@@ -22,32 +21,36 @@
     ]
   }
 
+def show_departments
+  @products.each_key { |key| puts "#{key}; "}
+end
+
+def line_divide
+  puts "*" * 40
+  puts "\n"
+end
 
 puts "Welcome to our store. What departments would you like to order from?\n
-You can choose 'mats' (1), 'props' (2), 'clothes' (3), 'books' (4)."
+You can choose from:\n\n"
+show_departments
+puts "\nEnter your choice\n"
 
-input = gets.chomp.to_i
+loop do
+  @input = gets.chomp.to_sym
+  line_divide
+  @product_hashes = @products[@input]
 
-if input == 1
-  for i in 0...(@products[:mats].length)
-    puts "#{@products[:mats][i][:reference_number]} - #{@products[:mats][i][:name]} - $#{@products[:mats][i][:price]}"
+  if @product_hashes == nil
+    puts "Invalid choice, try again"
+  else
+    break
   end
 end
 
-if input == 2
-  for i in 0...(@products[:props].length)
-    puts "#{@products[:props][i][:reference_number]} - #{@products[:props][i][:name]} - $#{@products[:props][i][:price]}"
+@product_hashes.each do |hash|
+  hash.each_value do |value|
+    print "#{value}; "
   end
-end
-
-if input == 3
-  for i in 0...(@products[:clothes].length)
-    puts "#{@products[:clothes][i][:reference_number]} - #{@products[:clothes][i][:name]} - $#{@products[:clothes][i][:price]}"
-  end
-end
-
-if input == 4
-  for i in 0...(@products[:books].length)
-    puts "#{@products[:books][i][:reference_number]} - #{@products[:books][i][:name]} - $#{@products[:books][i][:price]}"
-  end
+  puts
+  line_divide
 end
